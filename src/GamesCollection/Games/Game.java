@@ -2,7 +2,7 @@ package GamesCollection.Games;
 
 import java.util.Objects;
 
-public class Game {
+public abstract class Game {
     private String name;
     private int numberOfPlayers;
 

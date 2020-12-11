@@ -1,14 +1,15 @@
 package GamesCollection;
 
+import GamesCollection.Games.Game;
 import GamesCollection.Games.VideoGame;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
 public class GameUtil {
-    private static Set<VideoGame> videoGames = new HashSet<>();
+    private static Set<Game> videoGames = new HashSet<>();
 
-    public static void addGameToCollection(VideoGame newGame){
+    public static void addGameToCollection(Game newGame){
         videoGames.add(newGame);
         System.out.println("Игра " + newGame.getName() + " добавлена в коллекцию.");
     }
@@ -18,7 +19,7 @@ public class GameUtil {
             System.out.println("Такой игры нет в коллекции.");
         }
         else {
-            Iterator<VideoGame> gameIterator = videoGames.iterator();
+            Iterator<Game> gameIterator = videoGames.iterator();
             while (gameIterator.hasNext()) {
                 String gameName = gameIterator.next().getName();
                 if (gameName.equals(name)) {

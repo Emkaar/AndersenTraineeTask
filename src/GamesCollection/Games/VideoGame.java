@@ -1,24 +1,78 @@
 package GamesCollection.Games;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class VideoGame extends Game{
     private String genre;
     private double rating;
     private int ageLimit; //Pan European Game Information
-    private double priceRub;
-    private Calendar releaseDate;
+    private double price;
+    private Calendar releaseDate = new GregorianCalendar( 1992, 0, 1);
 
-    public VideoGame() {
+    public VideoGame(){}
+
+    public static class VideoGameBuilder{
+        String name;
+        int numberOfPlayers;
+        String genre = "Без жанра";
+        double rating = 0;
+        int ageLimit = 0; //Pan European Game Information
+        double price = 0;
+        Calendar releaseDate = new GregorianCalendar( 1992, 0, 1);;
+
+        public VideoGameBuilder() {
+        }
+
+        public VideoGameBuilder name(String name){
+            this.name = name;
+            return this;
+        }
+        public VideoGameBuilder numberOfPlayers(int numberOfPlayers){
+            this.numberOfPlayers = numberOfPlayers;
+            return this;
+        }
+        public VideoGameBuilder genre(String genre){
+            this.genre = genre;
+            return this;
+        }
+
+        public VideoGameBuilder rating(double rating){
+            this.rating = rating;
+            return this;
+        }
+
+        public VideoGameBuilder ageLimit(int ageLimit){
+            this.ageLimit = ageLimit;
+            return this;
+        }
+
+        public VideoGameBuilder price(double price){
+            this.price = price;
+            return this;
+        }
+
+        public VideoGameBuilder releaseDate(Calendar releaseDate){
+            this.releaseDate = releaseDate;
+            return this;
+        }
+        public VideoGameBuilder releaseDate(int year, int month, int day){
+            this.releaseDate = new GregorianCalendar(year, month-1, day);
+            return this;
+        }
+
+        public VideoGame build(){
+            return new VideoGame(this);
+        }
     }
 
-    public VideoGame(String name, int numberOfPlayers, String genre, double rating, int ageLimit, double priceRub, Calendar releaseDate) {
-        super(name, numberOfPlayers);
-        this.genre = genre;
-        this.rating = rating;
-        this.ageLimit = ageLimit;
-        this.priceRub = priceRub;
-        this.releaseDate = releaseDate;
+    private VideoGame (VideoGameBuilder builder){
+        super(builder.name, builder.numberOfPlayers);
+        genre = builder.genre;
+        rating = builder.rating;
+        ageLimit = builder.ageLimit;
+        price = builder.price;
+        releaseDate = builder.releaseDate;
     }
 
     public String getGenre() {
@@ -45,12 +99,12 @@ public class VideoGame extends Game{
         this.ageLimit = ageLimit;
     }
 
-    public double getPriceRub() {
-        return priceRub;
+    public double getPrice() {
+        return price;
     }
 
-    public void setPriceRub(double priceRub) {
-        this.priceRub = priceRub;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public Calendar getReleaseDate() {
@@ -67,7 +121,7 @@ public class VideoGame extends Game{
                 "genre=" + genre +
                 ", rating=" + rating +
                 ", ageLimit=" + ageLimit +
-                ", priceRub=" + priceRub +
+                ", priceRub=" + price +
                 ", releaseDate=" + releaseDate.getTime() +
                 "}\n";
     }

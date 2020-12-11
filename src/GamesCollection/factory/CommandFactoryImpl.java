@@ -2,26 +2,28 @@ package GamesCollection.factory;
 
 import GamesCollection.Command.*;
 
+import static GamesCollection.Command.CommandTypes.*;
+
 public class CommandFactoryImpl implements CommandFactory{
 
     Command command = null;
 
     @Override
-    public Command getCommand(String commandName){
+    public Command getCommand(CommandTypes commandName){
         switch (commandName) {
-            case "ADD":
+            case ADD:
                 command = new AddGameCommand();
                 break;
-            case "DELETE":
+            case DELETE:
                 command = new DeleteGameCommand();
                 break;
-            case "SHOW ALL":
+            case SHOW_ALL:
                 command = new ShowAllGamesCommand();
                 break;
-            case "DELETE ALL":
+            case DELETE_ALL:
                 command = new DeleteAllGamesCommand();
                 break;
-            case "EXIT":
+            case EXIT:
                 command = new ExitProgramCommand();
                 break;
             default:

@@ -1,5 +1,6 @@
 package GamesCollection;
 
+import GamesCollection.Command.CommandTypes;
 import GamesCollection.factory.CommandFactoryImpl;
 
 import java.util.Scanner;
@@ -10,7 +11,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите команду (ADD, DELETE, SHOW ALL, DELETE ALL, EXIT)");
         while (scanner.hasNext()){
-            new CommandFactoryImpl().getCommand(scanner.nextLine().toUpperCase()).execute();
+            CommandTypes command = CommandTypes.valueOf(scanner.nextLine().replace(' ', '_').toUpperCase());
+            new CommandFactoryImpl().getCommand(command).execute();
             System.out.println("Введите новую команду");
         }
     }

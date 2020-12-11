@@ -1,11 +1,17 @@
 package GamesCollection.factory;
 
-import GamesCollection.Builder.VideoGameBuilder;
+
+import GamesCollection.Games.*;
 
 
 public class GameFactoryImpl implements GameFactory{
     @Override
-    public VideoGameBuilder createGame(String type) {
-        return new VideoGameBuilder();
+    public Game createGame(GameType type) {
+        switch (type) {
+            case BOARD: return new BoardGame();
+            case VIDEO: return new VideoGame();
+            case SPORT: return new SportGame();
+            default: throw new IllegalArgumentException();
+        }
     }
 }
