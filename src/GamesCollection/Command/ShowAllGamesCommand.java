@@ -5,6 +5,10 @@ import GamesCollection.GameUtil;
 public class ShowAllGamesCommand implements Command {
     @Override
     public void execute() {
-        GameUtil.showAllGames();
+        if (GameUtil.showAllGames()){
+            GameUtil.showAllGames();
+        }else {
+            System.out.println("В коллекции еще нет игр.");
+        }
     }
 }

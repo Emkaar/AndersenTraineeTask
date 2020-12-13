@@ -12,6 +12,10 @@ public class VideoGame extends Game{
 
     public VideoGame(){}
 
+    public static VideoGameBuilder build(){
+        return new VideoGameBuilder();
+    }
+
     public static class VideoGameBuilder{
         String name;
         int numberOfPlayers;

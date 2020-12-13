@@ -7,7 +7,6 @@ import GamesCollection.factory.GameFactory;
 import GamesCollection.factory.GameFactoryImpl;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class AddGameCommand implements Command {
@@ -17,13 +16,8 @@ public class AddGameCommand implements Command {
         GameFactory gameFactory = new GameFactoryImpl();
         System.out.println("Какой тип игры вы хотите добавить? (video, sport or board)");
         Game newGame = gameFactory.createGame(GameType.valueOf(scanner.nextLine().toUpperCase()));
-//        System.out.println("Как называется игра?");
-//        newGame.setName(scanner.nextLine().toUpperCase());
-//        System.out.println("Сколько человек может в нее играть?");
-//        newGame.setNumberOfPlayers(scanner.nextInt());
-//        scanner.nextLine();
         if(newGame instanceof VideoGame) {
-            VideoGame.VideoGameBuilder gameBuilder = new VideoGame.VideoGameBuilder();
+            VideoGame.VideoGameBuilder gameBuilder = VideoGame.build();
             System.out.println("Как называется игра?");
             gameBuilder.name(scanner.nextLine().toUpperCase());
             System.out.println("Сколько человек может в нее играть?");
@@ -69,9 +63,15 @@ public class AddGameCommand implements Command {
             scanner.nextLine();
             System.out.println("Какая средняя продолжительность игры?");
             gameBuilder.gameTime(scanner.nextLine());
-            newGame = gameBuilder.build();;
+            newGame = gameBuilder.build();
         }
 
-        GameUtil.addGameToCollection(newGame);
+
+        if(GameUtil.addGameToCollection(newGame)){
+            GameUtil.addGameToCollection(newGame);
+            System.out.println("Игра " + newGame.getName() + " добавлена в коллекцию.");
+        }else {
+            System.out.println("Такая игра уже есть в коллекции.");
+        }
     }
 }
