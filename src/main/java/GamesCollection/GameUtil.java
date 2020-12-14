@@ -16,7 +16,7 @@ public class GameUtil {
         Iterator<Game> gameIterator = videoGames.iterator();
         while (gameIterator.hasNext()) {
             String gameName = gameIterator.next().getName();
-            if (gameName.equals(name)) {
+            if (gameName.equals(name.toUpperCase())) {
                 gameIterator.remove();
                 return true;
             }

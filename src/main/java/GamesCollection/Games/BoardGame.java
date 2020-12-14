@@ -8,6 +8,10 @@ public class BoardGame extends Game{
     public BoardGame() {
     }
 
+    public static BoardGameBuilder getBuilder(){
+        return new BoardGameBuilder();
+    }
+
     public static class BoardGameBuilder{
         String name;
         int numberOfPlayers;
@@ -16,7 +20,7 @@ public class BoardGame extends Game{
         String gameTime;
 
         public BoardGameBuilder name(String name){
-            this.name = name;
+            this.name = name.toUpperCase();
             return this;
         }
 

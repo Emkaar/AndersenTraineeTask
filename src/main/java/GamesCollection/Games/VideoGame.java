@@ -12,7 +12,7 @@ public class VideoGame extends Game{
 
     public VideoGame(){}
 
-    public static VideoGameBuilder build(){
+    public static VideoGameBuilder getBuilder(){
         return new VideoGameBuilder();
     }
 
@@ -23,13 +23,13 @@ public class VideoGame extends Game{
         double rating = 0;
         int ageLimit = 0; //Pan European Game Information
         double price = 0;
-        Calendar releaseDate = new GregorianCalendar( 1992, 0, 1);;
+        Calendar releaseDate = new GregorianCalendar( 1992, 0, 1);
 
         public VideoGameBuilder() {
         }
 
         public VideoGameBuilder name(String name){
-            this.name = name;
+            this.name = name.toUpperCase();
             return this;
         }
         public VideoGameBuilder numberOfPlayers(int numberOfPlayers){

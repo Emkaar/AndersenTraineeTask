@@ -8,6 +8,10 @@ public class SportGame extends Game{
 
     public SportGame(){}
 
+    public static SportGameBuilder getBuilder(){
+        return new SportGameBuilder();
+    }
+
     public static class SportGameBuilder{
         String name;
         int numberOfPlayers;
@@ -17,7 +21,7 @@ public class SportGame extends Game{
         }
 
         public SportGameBuilder name(String name){
-            this.name = name;
+            this.name = name.toUpperCase();
             return this;
         }
         public SportGameBuilder numberOfPlayers(int numberOfPlayers){

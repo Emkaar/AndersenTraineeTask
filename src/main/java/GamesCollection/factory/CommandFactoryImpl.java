@@ -9,7 +9,7 @@ public class CommandFactoryImpl implements CommandFactory{
     Command command = null;
 
     @Override
-    public Command getCommand(CommandTypes commandName){
+    public Command getCommand(CommandTypes commandName) throws IllegalArgumentException{
         switch (commandName) {
             case ADD:
                 command = new AddGameCommand();
