@@ -12,7 +12,7 @@ public class DeleteGameCommand implements Command{
         String gameName = new Scanner(System.in).nextLine().toUpperCase();
         if(GameUtil.deleteGameFromCollection(gameName)){
             GameUtil.deleteGameFromCollection(gameName);
-            System.out.println("Игра " + gameName + " удалена из коллекции");
+            System.out.println("Игра " + gameName + " удалена из коллекции.");
         }else {
             System.out.println("Такой игры нет в коллекции.");
         }

@@ -18,7 +18,7 @@ public class Main {
             }catch (IllegalArgumentException exception){
                 System.out.println("Введена неверная команда.");
             }
-            System.out.println("Введите новую команду");
+            System.out.println("Введите новую команду.");
         }
     }
 }

@@ -7,9 +7,9 @@ public class DeleteAllGamesCommand implements Command{
     public void execute() {
         if(GameUtil.deleteAllGames()){
             GameUtil.deleteAllGames();
-            System.out.println("Все игры удалены из коллекции");
+            System.out.println("Все игры удалены из коллекции.");
         }else {
-            System.out.println("Коллекция пуста, удалять пока нечего");
+            System.out.println("Коллекция пуста, удалять пока нечего.");
         }
     }
 }

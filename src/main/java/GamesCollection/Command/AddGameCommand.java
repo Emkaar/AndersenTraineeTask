@@ -19,7 +19,7 @@ public class AddGameCommand implements Command {
         try {
             newGame = gameFactory.createGame(GameType.valueOf(scanner.nextLine().toUpperCase()));
         } catch (IllegalArgumentException exception) {
-            System.out.println("Вы написали неверный тип игры.");
+            System.out.println("Вы написали неверный тип игры!");
             return;
         }
 
@@ -72,13 +72,13 @@ public class AddGameCommand implements Command {
             gameBuilder.gameTime(scanner.nextLine());
             newGame = gameBuilder.build();
 
-
+        }
             if (GameUtil.addGameToCollection(newGame)) {
                 GameUtil.addGameToCollection(newGame);
                 System.out.println("Игра " + newGame.getName() + " добавлена в коллекцию.");
             } else {
                 System.out.println("Такая игра уже есть в коллекции.");
             }
-        }
     }
 }
+
