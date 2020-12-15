@@ -7,7 +7,7 @@ public class ShowAllGamesCommand implements Command {
     public void execute() {
         if (GameUtil.showAllGames()){
         }else {
-            System.out.println("В коллекции еще нет игр!");
+            System.out.println("The collection is empty.");
         }
     }
 }

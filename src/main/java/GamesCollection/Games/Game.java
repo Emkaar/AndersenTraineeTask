@@ -32,8 +32,7 @@ public abstract class Game {
 
     @Override
     public String toString() {
-        return "Game{" +
-                "name='" + name + '\'' +
+        return "name='" + name + '\'' +
                 ", numberOfPlayers=" + numberOfPlayers +
                 '}';
     }

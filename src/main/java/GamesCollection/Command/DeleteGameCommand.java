@@ -8,13 +8,13 @@ public class DeleteGameCommand implements Command{
 
     @Override
     public void execute() {
-        System.out.println("Введите название игры, которую хотите удалить.");
+        System.out.println("Enter the name of game you want to delete.");
         String gameName = new Scanner(System.in).nextLine().toUpperCase();
         if(GameUtil.deleteGameFromCollection(gameName)){
             GameUtil.deleteGameFromCollection(gameName);
-            System.out.println("Игра " + gameName + " удалена из коллекции.");
+            System.out.println("Game " + gameName + " removed from the collection.");
         }else {
-            System.out.println("Такой игры нет в коллекции.");
+            System.out.println("A game with that name is not in the collection.");
         }
 
     }
