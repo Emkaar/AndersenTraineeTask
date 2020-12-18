@@ -1,8 +1,10 @@
 package GamesCollection.Games;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class Game {
+public abstract class Game implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String name;
     private int numberOfPlayers;
 

@@ -9,6 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        GameUtil.loadGames();
         System.out.println("Enter the command (ADD, DELETE, SHOW ALL, DELETE ALL, EXIT)");
         while (scanner.hasNext()){
             CommandTypes command = null;
