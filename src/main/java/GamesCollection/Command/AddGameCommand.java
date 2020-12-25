@@ -40,9 +40,6 @@ public class AddGameCommand implements Command {
             System.out.println("How much does the game cost?");
             gameBuilder.price(scanner.nextDouble());
             scanner.nextLine();
-            System.out.println("When was the game released? Enter day, month and year.");
-            int day = scanner.nextInt(), month = scanner.nextInt(), year = scanner.nextInt();
-            gameBuilder.releaseDate(year, month, day);
             newGame = gameBuilder.build();
 
         } else if (newGame instanceof SportGame) {
@@ -52,6 +49,9 @@ public class AddGameCommand implements Command {
             System.out.println("What is the maximum number of players?");
             gameBuilder.numberOfPlayers(scanner.nextInt());
             scanner.nextLine();
+            System.out.println("What type is this sport game? (personal, command or personal-command)");
+            gameBuilder.sportGameType(SportGame.SportType.valueOf(scanner.nextLine().
+                    toUpperCase().replace('-', '_')));
             System.out.println("What inventory is used in this game?");
             gameBuilder.inventory(Arrays.asList(scanner.nextLine().split(" ")));
             newGame = gameBuilder.build();

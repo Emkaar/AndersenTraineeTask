@@ -8,7 +8,6 @@ public class VideoGame extends Game{
     private double rating;
     private int ageLimit; //Pan European Game Information
     private double price;
-    private Calendar releaseDate = new GregorianCalendar( 1992, 0, 1);
 
     public VideoGame(){}
 
@@ -76,7 +75,6 @@ public class VideoGame extends Game{
         rating = builder.rating;
         ageLimit = builder.ageLimit;
         price = builder.price;
-        releaseDate = builder.releaseDate;
     }
 
     public String getGenre() {
@@ -111,13 +109,6 @@ public class VideoGame extends Game{
         this.price = price;
     }
 
-    public Calendar getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(Calendar releaseDate) {
-        this.releaseDate = releaseDate;
-    }
 
     @Override
     public String toString() {
@@ -126,7 +117,6 @@ public class VideoGame extends Game{
                 ", rating=" + rating +
                 ", ageLimit=" + ageLimit +
                 ", priceRub=" + price +
-                ", releaseDate=" + releaseDate.getTime() +
                 "}\n";
     }
 }
