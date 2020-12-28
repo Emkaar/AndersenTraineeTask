@@ -55,15 +55,6 @@ public class VideoGame extends Game{
             return this;
         }
 
-        public VideoGameBuilder releaseDate(Calendar releaseDate){
-            this.releaseDate = releaseDate;
-            return this;
-        }
-        public VideoGameBuilder releaseDate(int year, int month, int day){
-            this.releaseDate = new GregorianCalendar(year, month-1, day);
-            return this;
-        }
-
         public VideoGame build(){
             return new VideoGame(this);
         }

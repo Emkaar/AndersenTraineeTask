@@ -56,6 +56,18 @@ public class BoardGame extends Game{
         gameTime = builder.gameTime;
     }
 
+    public String getGenre() {
+        return genre;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getGameTime() {
+        return gameTime;
+    }
+
     @Override
     public String toString() {
         return "BoardGame{" + super.toString() +

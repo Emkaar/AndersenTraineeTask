@@ -54,6 +54,14 @@ public class SportGame extends Game{
         inventory = builder.inventory;
     }
 
+    public SportType getSportType() {
+        return sportType;
+    }
+
+    public List<String> getInventory() {
+        return inventory;
+    }
+
     @Override
     public String toString() {
         return "SportGame{" + super.toString() +
@@ -61,4 +69,6 @@ public class SportGame extends Game{
                 "inventory=" + inventory +
                 "} \n";
     }
+
+
 }
