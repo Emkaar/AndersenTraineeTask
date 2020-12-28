@@ -41,6 +41,7 @@ public class GameRepository implements Repository {
             } else if(game instanceof BoardGame){
                 addBoardGame(game, gameId);
             }
+            connection.commit();
             return true;
         }
     }
@@ -92,7 +93,9 @@ public class GameRepository implements Repository {
     public boolean deleteGame(String name) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("delete from games.games where name = ?");
         statement.setString(1, name);
-        if(statement.executeUpdate()==0){
+        int updatedRows = statement.executeUpdate();
+        connection.commit();
+        if(updatedRows==0){
             return false;
         }else {
             return true;
@@ -167,7 +170,9 @@ public class GameRepository implements Repository {
     public boolean deleteAllGames(){
         try {
             PreparedStatement statement = connection.prepareStatement("delete from games");
-            if(statement.executeUpdate() == 0){
+            int updatedRows = statement.executeUpdate();
+            connection.commit();
+            if(updatedRows==0){
                 return false;
             }
             return true;

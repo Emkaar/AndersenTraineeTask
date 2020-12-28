@@ -19,6 +19,7 @@ public class DBGameUtil {
     static {
         try{
             Connection connection = DriverManager.getConnection(DB_URL + TIME_ZONE, DB_USER_NAME, DB_PASSWORD);
+            connection.setAutoCommit(false);
             gameRepository = new GameRepository(connection);
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -64,6 +65,14 @@ public class DBGameUtil {
         } catch (SQLException exception) {
             exception.printStackTrace();
             return false;
+        }
+    }
+
+    public static void closeConnection(){
+        try {
+            connection.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
     }
 }
