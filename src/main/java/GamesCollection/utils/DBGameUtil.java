@@ -14,14 +14,17 @@ public class DBGameUtil {
     public static final String DB_URL = "jdbc:mysql://localhost:3306/games";
     public static final String TIME_ZONE = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
+
     private static Connection connection;
     private static Repository gameRepository;
     static {
+
         try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection(DB_URL + TIME_ZONE, DB_USER_NAME, DB_PASSWORD);
             connection.setAutoCommit(false);
             gameRepository = new GameRepository(connection);
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
     }
