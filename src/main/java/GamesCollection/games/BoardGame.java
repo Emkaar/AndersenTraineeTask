@@ -1,4 +1,4 @@
-package GamesCollection.Games;
+package GamesCollection.games;
 
 public class BoardGame extends Game{
     private String genre;

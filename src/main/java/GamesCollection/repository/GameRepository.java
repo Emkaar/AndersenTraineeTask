@@ -1,42 +1,47 @@
 package GamesCollection.repository;
 
-import GamesCollection.Games.BoardGame;
-import GamesCollection.Games.Game;
-import GamesCollection.Games.SportGame;
-import GamesCollection.Games.VideoGame;
+import GamesCollection.games.BoardGame;
+import GamesCollection.games.Game;
+import GamesCollection.games.SportGame;
+import GamesCollection.games.VideoGame;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GameRepository {
+public class GameRepository implements Repository {
     private Connection connection;
 
     public GameRepository(Connection connection) {
         this.connection = connection;
     }
 
-    public void addGame(Game game) throws SQLException {
-        PreparedStatement statement = connection.
-                prepareStatement("insert into games.games (name, number_of_players) values (?, ?);");
-        statement.setString(1, game.getName());
-        statement.setInt(2, game.getNumberOfPlayers());
-        statement.execute();
-        PreparedStatement id = connection.prepareStatement("select id from games.games where name = ?;");
-        id.setString(1, game.getName());
-        ResultSet newGameId = id.executeQuery();
-        int gameId = 0;
-        while (newGameId.next()){
-            gameId = newGameId.getInt("id");
-        }
-
-        if(game instanceof VideoGame){
-            addVideoGame(game, gameId);
-        } else if (game instanceof SportGame){
-            addSportGame(game, gameId);
+    public boolean addGame(Game game) throws SQLException {
+        if (isGameExist(game.getName())){
+            return false;
         }else {
-            addBoardGame(game, gameId);
+            PreparedStatement statement = connection.
+                    prepareStatement("insert into games.games (name, number_of_players) values (?, ?);");
+            statement.setString(1, game.getName());
+            statement.setInt(2, game.getNumberOfPlayers());
+            statement.execute();
+            PreparedStatement id = connection.prepareStatement("select id from games.games where name = ?;");
+            id.setString(1, game.getName());
+            ResultSet newGameId = id.executeQuery();
+            int gameId = 0;
+            while (newGameId.next()) {
+                gameId = newGameId.getInt("id");
+            }
+
+            if (game instanceof VideoGame) {
+                addVideoGame(game, gameId);
+            } else if (game instanceof SportGame) {
+                addSportGame(game, gameId);
+            } else if(game instanceof BoardGame){
+                addBoardGame(game, gameId);
+            }
+            return true;
         }
     }
 
@@ -45,7 +50,7 @@ public class GameRepository {
         PreparedStatement statement = connection.prepareStatement("update games.games set type='board' where id = ?");
         statement.setInt(1, gameId);
         statement.executeUpdate();
-        PreparedStatement boardGameStatement = connection.prepareStatement("insert into games.video_games values (?, ?, ?, ?);");
+        PreparedStatement boardGameStatement = connection.prepareStatement("insert into games.board_games values (?, ?, ?, ?)");
         boardGameStatement.setInt(1, gameId);
         boardGameStatement.setString(2, boardGame.getGenre());
         boardGameStatement.setDouble(3, boardGame.getPrice());
@@ -58,7 +63,7 @@ public class GameRepository {
         PreparedStatement statement = connection.prepareStatement("update games.games set type='sport' where id = ?");
         statement.setInt(1, gameId);
         statement.executeUpdate();
-        PreparedStatement sportGameStatement = connection.prepareStatement("insert into games.sport_games values (?, ?);");
+        PreparedStatement sportGameStatement = connection.prepareStatement("insert into games.sport_games values (?, ?)");
         sportGameStatement.setInt(1, gameId);
         sportGameStatement.setString(2, sportGame.getSportType().name());
         sportGameStatement.execute();
@@ -87,7 +92,11 @@ public class GameRepository {
     public boolean deleteGame(String name) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("delete from games.games where name = ?");
         statement.setString(1, name);
-        return statement.execute();
+        if(statement.executeUpdate()==0){
+            return false;
+        }else {
+            return true;
+        }
     }
 
     public Set<Game> getAll() throws SQLException {
@@ -152,5 +161,32 @@ public class GameRepository {
                     .build());
         }
         return resultGameSet;
+    }
+
+    @Override
+    public boolean deleteAllGames(){
+        try {
+            PreparedStatement statement = connection.prepareStatement("delete from games");
+            if(statement.executeUpdate() == 0){
+                return false;
+            }
+            return true;
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean isGameExist(String name){
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("select * from games where name=?");
+            preparedStatement.setString(1, name);
+            preparedStatement.execute();
+            return preparedStatement.getResultSet().next();
+        } catch (SQLException exception) {
+            System.out.println("Something wrong in check");
+            return false;
+        }
     }
 }

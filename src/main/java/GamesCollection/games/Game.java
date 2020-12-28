@@ -1,4 +1,4 @@
-package GamesCollection.Games;
+package GamesCollection.games;
 
 import java.io.Serializable;
 import java.util.Objects;

@@ -1,7 +1,7 @@
 package GamesCollection.factory;
 
 
-import GamesCollection.Games.*;
+import GamesCollection.games.*;
 
 
 public class GameFactoryImpl implements GameFactory{

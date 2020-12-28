@@ -1,7 +1,7 @@
 package GamesCollection.factory;
 
-import GamesCollection.Games.Game;
-import GamesCollection.Games.GameType;
+import GamesCollection.games.Game;
+import GamesCollection.games.GameType;
 
 public interface GameFactory {
     Game createGame(GameType type);

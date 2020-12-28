@@ -1,8 +1,8 @@
 package GamesCollection;
 
-import GamesCollection.Command.AddGameCommand;
-import GamesCollection.Command.Command;
-import GamesCollection.Command.CommandTypes;
+import GamesCollection.commands.AddGameCommand;
+import GamesCollection.commands.Command;
+import GamesCollection.commands.CommandTypes;
 import GamesCollection.factory.CommandFactory;
 import GamesCollection.factory.CommandFactoryImpl;
 import org.junit.Assert;

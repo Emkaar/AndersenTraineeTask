@@ -1,8 +1,8 @@
 package GamesCollection;
 
-import GamesCollection.Games.Game;
-import GamesCollection.Games.GameType;
-import GamesCollection.Games.SportGame;
+import GamesCollection.games.Game;
+import GamesCollection.games.GameType;
+import GamesCollection.games.SportGame;
 import GamesCollection.factory.GameFactory;
 import GamesCollection.factory.GameFactoryImpl;
 import org.junit.Assert;

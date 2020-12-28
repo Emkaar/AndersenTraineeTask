@@ -1,6 +1,6 @@
 package GamesCollection;
 
-import GamesCollection.Command.CommandTypes;
+import GamesCollection.commands.CommandTypes;
 import GamesCollection.factory.CommandFactoryImpl;
 
 import java.util.Scanner;
@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        GameUtil.loadGames();
+        //FileGameUtil.loadGames();
         System.out.println("Enter the command (ADD, DELETE, SHOW ALL, DELETE ALL, EXIT)");
         while (scanner.hasNext()){
             CommandTypes command = null;

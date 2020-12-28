@@ -1,8 +1,6 @@
 package GamesCollection.factory;
 
-import GamesCollection.Command.*;
-
-import static GamesCollection.Command.CommandTypes.*;
+import GamesCollection.commands.*;
 
 public class CommandFactoryImpl implements CommandFactory{
 

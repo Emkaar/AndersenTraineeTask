@@ -1,11 +1,11 @@
-package GamesCollection;
+package GamesCollection.utils;
 
-import GamesCollection.Games.Game;
+import GamesCollection.games.Game;
 
 import java.io.*;
 import java.util.*;
 
-public class GameUtil {
+public class FileGameUtil {
     private static WeakHashMap<Game, Integer> games = new WeakHashMap<>();
 
     private static File gameCollectionFile = new File("GamesCollection.ser");

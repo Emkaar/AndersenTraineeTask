@@ -1,11 +1,12 @@
-package GamesCollection.Command;
+package GamesCollection.commands;
 
-import GamesCollection.GameUtil;
+import GamesCollection.utils.DBGameUtil;
+import GamesCollection.utils.FileGameUtil;
 
 public class ShowAllGamesCommand implements Command {
     @Override
     public void execute() {
-        if (GameUtil.showAllGames()){
+        if (DBGameUtil.showAll()){
         }else {
             System.out.println("The collection is empty.");
         }

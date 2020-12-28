@@ -1,4 +1,4 @@
-package GamesCollection.Games;
+package GamesCollection.games;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
