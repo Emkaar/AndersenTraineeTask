@@ -2,12 +2,10 @@ package GamesCollection.connection;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Properties;
 
-public class DBConnector {
+public class DbConnector {
     private static HikariDataSource dataSource;
     static {
         dataSource = new HikariDataSource(new HikariConfig("/db.properties"));

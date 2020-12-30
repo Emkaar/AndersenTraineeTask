@@ -1,19 +1,17 @@
 package GamesCollection.repository;
 
-import GamesCollection.games.BoardGame;
-import GamesCollection.games.Game;
-import GamesCollection.games.SportGame;
-import GamesCollection.games.VideoGame;
+import GamesCollection.games.*;
+import GamesCollection.entity.Inventory;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GameRepository implements Repository {
+public class GameDbRepository implements Repository {
     private Connection connection;
 
-    public GameRepository(Connection connection) {
+    public GameDbRepository(Connection connection) {
         this.connection = connection;
         try {
             this.connection.setAutoCommit(false);
@@ -21,6 +19,7 @@ public class GameRepository implements Repository {
             exception.printStackTrace();
         }
     }
+
 
     public boolean addGame(Game game) throws SQLException {
         if (isGameExist(game.getName())){
@@ -76,7 +75,7 @@ public class GameRepository implements Repository {
         for (String item : sportGame.getInventory()){
             PreparedStatement inventory = connection.prepareStatement("insert into sport_game_inventory (game_id, name) values (?, ?)");
             inventory.setInt(1, gameId);
-            inventory.setString(2, item);
+            inventory.setString(2, String.valueOf(item));
             inventory.execute();
         }
     }

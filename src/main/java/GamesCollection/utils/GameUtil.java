@@ -1,14 +1,14 @@
 package GamesCollection.utils;
 
-import GamesCollection.connection.DBConnector;
+import GamesCollection.connection.DbConnector;
 import GamesCollection.games.Game;
-import GamesCollection.repository.GameRepository;
+import GamesCollection.repository.GameDbRepository;
 import GamesCollection.repository.Repository;
 import java.sql.SQLException;
 
-public class DBGameUtil {
+public class GameUtil {
 
-    private static Repository gameRepository = new GameRepository(DBConnector.getConnection());
+    private static Repository gameRepository = new GameDbRepository(DbConnector.getConnection());
 
     public static boolean addGame(Game game){
         try {
@@ -54,6 +54,6 @@ public class DBGameUtil {
     }
 
     public static void closeConnection(){
-            DBConnector.closeConnections();
+            DbConnector.closeConnections();
     }
 }

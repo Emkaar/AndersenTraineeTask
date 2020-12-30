@@ -1,15 +1,26 @@
 package GamesCollection.games;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class VideoGame extends Game{
+@Data
+@Entity
+@Table(name = "video_games")
+@NoArgsConstructor
+@AllArgsConstructor
+public class VideoGame extends Game {
     private String genre;
     private double rating;
+    @Column(name = "age_limit")
     private int ageLimit; //Pan European Game Information
     private double price;
-
-    public VideoGame(){}
 
     public static VideoGameBuilder getBuilder(){
         return new VideoGameBuilder();
@@ -60,46 +71,13 @@ public class VideoGame extends Game{
         }
     }
 
-    private VideoGame (VideoGameBuilder builder){
+    private VideoGame(VideoGameBuilder builder){
         super(builder.name, builder.numberOfPlayers);
         genre = builder.genre;
         rating = builder.rating;
         ageLimit = builder.ageLimit;
         price = builder.price;
     }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
-    public int getAgeLimit() {
-        return ageLimit;
-    }
-
-    public void setAgeLimit(int ageLimit) {
-        this.ageLimit = ageLimit;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
 
     @Override
     public String toString() {

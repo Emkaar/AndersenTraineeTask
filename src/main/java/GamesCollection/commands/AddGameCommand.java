@@ -1,8 +1,7 @@
 package GamesCollection.commands;
 
 
-import GamesCollection.utils.DBGameUtil;
-import GamesCollection.utils.FileGameUtil;
+import GamesCollection.utils.GameUtil;
 import GamesCollection.games.*;
 import GamesCollection.factory.GameFactory;
 import GamesCollection.factory.GameFactoryImpl;
@@ -74,7 +73,7 @@ public class AddGameCommand implements Command {
             newGame = gameBuilder.build();
 
         }
-            if (DBGameUtil.addGame(newGame)) {
+            if (GameUtil.addGame(newGame)) {
                 System.out.println("Game " + newGame.getName() + " added in collection.");
             } else {
                 System.out.println("This game already exist in collection.");
