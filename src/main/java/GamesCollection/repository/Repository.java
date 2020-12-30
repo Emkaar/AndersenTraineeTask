@@ -10,4 +10,5 @@ public interface Repository {
         public boolean deleteGame(String name) throws SQLException;
         public Set<Game> getAll() throws SQLException;
         public boolean deleteAllGames() throws SQLException;
+        public void exit();
 }

@@ -1,13 +1,10 @@
-import GamesCollection.entity.Inventory;
-import GamesCollection.entity.SportGameEntity;
-import GamesCollection.entity.VideoGameEntity;
-import GamesCollection.games.VideoGame;
+import GamesCollection.games.Inventory;
+import GamesCollection.games.SportGame;
+import GamesCollection.repository.GameHibernateRepository;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
-import java.util.Arrays;
 
 public class Main {
     private static final SessionFactory ourSessionFactory;
@@ -29,6 +26,8 @@ public class Main {
 
     public static void main(final String[] args) throws Exception {
         final Session session = getSession();
+        GameHibernateRepository gameHibernateRepository = new GameHibernateRepository();
+
         try {
 //            System.out.println("querying all the managed entities...");
 //            final Metamodel metamodel = session.getSessionFactory().getMetamodel();
@@ -39,14 +38,13 @@ public class Main {
 //                for (Object o : query.list()) {
 //                    System.out.println("  " + o);
 //                }
-            SportGameEntity game = new SportGameEntity();
-            game.setName("Football");
-            game.setNumberOfPlayers(22);
-            session.beginTransaction();
-            session.save(game);
-            session.getTransaction().commit();
-
-
+//            SportGame sportGame = new SportGame();
+//            sportGame.setName("BasketBall");
+//            sportGame.setNumberOfPlayers(12);
+//            sportGame.setType(SportGame.SportGameType.COMMAND);
+//            sportGame.addInventory(new Inventory("Ball"));
+//            gameHibernateRepository.addGame(sportGame);
+            gameHibernateRepository.deleteAllGames();
         } finally {
             session.close();
         }

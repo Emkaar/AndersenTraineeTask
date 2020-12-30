@@ -2,9 +2,9 @@ package GamesCollection;
 
 import GamesCollection.games.Game;
 import GamesCollection.games.GameType;
-import GamesCollection.games.SportGame;
 import GamesCollection.factory.GameFactory;
 import GamesCollection.factory.GameFactoryImpl;
+import GamesCollection.games.SportGame;
 import org.junit.Assert;
 import org.junit.Test;
 

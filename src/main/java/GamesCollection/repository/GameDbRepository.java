@@ -1,7 +1,7 @@
 package GamesCollection.repository;
 
+import GamesCollection.connection.DbConnector;
 import GamesCollection.games.*;
-import GamesCollection.entity.Inventory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,6 +10,10 @@ import java.util.Set;
 
 public class GameDbRepository implements Repository {
     private Connection connection;
+
+    public GameDbRepository(){
+        new GameDbRepository(DbConnector.getConnection());
+    }
 
     public GameDbRepository(Connection connection) {
         this.connection = connection;
@@ -70,12 +74,12 @@ public class GameDbRepository implements Repository {
         statement.executeUpdate();
         PreparedStatement sportGameStatement = connection.prepareStatement("insert into games.sport_games values (?, ?)");
         sportGameStatement.setInt(1, gameId);
-        sportGameStatement.setString(2, sportGame.getSportType().name());
+        sportGameStatement.setInt(2, sportGame.getType().ordinal());
         sportGameStatement.execute();
-        for (String item : sportGame.getInventory()){
+        for (Inventory item : sportGame.getInventoryList()){
             PreparedStatement inventory = connection.prepareStatement("insert into sport_game_inventory (game_id, name) values (?, ?)");
             inventory.setInt(1, gameId);
-            inventory.setString(2, String.valueOf(item));
+            inventory.setString(2, item.getName());
             inventory.execute();
         }
     }
@@ -99,11 +103,7 @@ public class GameDbRepository implements Repository {
         statement.setString(1, name);
         int updatedRows = statement.executeUpdate();
         connection.commit();
-        if(updatedRows==0){
-            return false;
-        }else {
-            return true;
-        }
+        return updatedRows != 0;
     }
 
     public Set<Game> getAll() throws SQLException {
@@ -115,14 +115,14 @@ public class GameDbRepository implements Repository {
         videoGameStatement.execute();
         ResultSet videoGamesResultSet = videoGameStatement.getResultSet();
         while (videoGamesResultSet.next()){
-            resultGameSet.add(VideoGame.getBuilder()
-                    .name(videoGamesResultSet.getString(1))
-                    .numberOfPlayers(videoGamesResultSet.getInt(2))
-                    .genre(videoGamesResultSet.getString(3))
-                    .rating(videoGamesResultSet.getDouble(4))
-                    .ageLimit(videoGamesResultSet.getInt(5))
-                    .price(videoGamesResultSet.getDouble(6))
-                    .build());
+            VideoGame game = new VideoGame();
+            game.setName(videoGamesResultSet.getString(1));
+            game.setNumberOfPlayers(videoGamesResultSet.getInt(2));
+            game.setGenre(videoGamesResultSet.getString(3));
+            game.setRating(videoGamesResultSet.getDouble(4));
+            game.setAgeLimit(videoGamesResultSet.getInt(5));
+            game.setPrice(videoGamesResultSet.getDouble(6));
+            resultGameSet.add(game);
         }
         Statement boardGamesStatement = connection.createStatement();
         boardGamesStatement.execute(
@@ -131,13 +131,13 @@ public class GameDbRepository implements Repository {
                 "group by name");
         ResultSet boardGamesResultSet = boardGamesStatement.getResultSet();
         while (boardGamesResultSet.next()){
-            resultGameSet.add(BoardGame.getBuilder()
-                    .name(boardGamesResultSet.getString(1))
-                    .numberOfPlayers(boardGamesResultSet.getInt(2))
-                    .genre(boardGamesResultSet.getString(3))
-                    .price(boardGamesResultSet.getDouble(4))
-                    .gameTime(boardGamesResultSet.getString(5))
-                    .build());
+            BoardGame game = new BoardGame();
+            game.setName(boardGamesResultSet.getString(1));
+            game.setNumberOfPlayers(boardGamesResultSet.getInt(2));
+            game.setGenre(boardGamesResultSet.getString(3));
+            game.setPrice(boardGamesResultSet.getDouble(4));
+            game.setGameTime(boardGamesResultSet.getString(5));
+            resultGameSet.add(game);
         }
 
         Statement sportGameStatement = connection.createStatement();
@@ -148,7 +148,7 @@ public class GameDbRepository implements Repository {
         );
         ResultSet sportGamesResultSet = sportGameStatement.getResultSet();
         while (sportGamesResultSet.next()){
-            ArrayList<String>inventory = new ArrayList<>();
+            ArrayList<Inventory>inventory = new ArrayList<>();
             PreparedStatement inventoryStatement = connection.prepareStatement(
                     "select sport_game_inventory.name " +
                         "from sport_game_inventory " +
@@ -158,14 +158,14 @@ public class GameDbRepository implements Repository {
             inventoryStatement.execute();
             ResultSet inventoryResultSet = inventoryStatement.getResultSet();
             while (inventoryResultSet.next()){
-                inventory.add(inventoryResultSet.getString(1));
+                inventory.add(new Inventory(inventoryResultSet.getString(1)));
             }
-            resultGameSet.add(SportGame.getBuilder()
-                    .name(sportGamesResultSet.getString(2))
-                    .numberOfPlayers(sportGamesResultSet.getInt(3))
-                    .sportGameType(SportGame.SportType.valueOf(sportGamesResultSet.getString(4)))
-                    .inventory(inventory)
-                    .build());
+            SportGame game = new SportGame();
+            game.setName(sportGamesResultSet.getString(2));
+            game.setNumberOfPlayers(sportGamesResultSet.getInt(3));
+            game.setType(SportGame.SportGameType.valueOf(sportGamesResultSet.getString(4)));
+            game.setInventoryList(inventory);
+            resultGameSet.add(game);
         }
         return resultGameSet;
     }
@@ -176,18 +176,24 @@ public class GameDbRepository implements Repository {
             PreparedStatement statement = connection.prepareStatement("delete from games");
             int updatedRows = statement.executeUpdate();
             connection.commit();
-            if(updatedRows==0){
-                return false;
-            }
-            return true;
+            return updatedRows != 0;
         } catch (SQLException exception) {
             exception.printStackTrace();
             return false;
         }
     }
 
+    @Override
+    public void exit() {
+        try {
+            connection.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
     private boolean isGameExist(String name){
-        PreparedStatement preparedStatement = null;
+        PreparedStatement preparedStatement;
         try {
             preparedStatement = connection.prepareStatement("select * from games where name=?");
             preparedStatement.setString(1, name);

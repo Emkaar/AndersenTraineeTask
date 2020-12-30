@@ -1,24 +1,35 @@
 package GamesCollection.games;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Data
+@Entity
+@Table(name = "games")
+@Inheritance(strategy = InheritanceType.JOINED)
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class Game implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class Game {
+    @Id
+    @GeneratedValue
+    private int id;
+    @Column(unique = true)
     private String name;
     @Column(name = "number_of_players")
     private int numberOfPlayers;
 
+    public void setName(String name) {
+        this.name = name.toUpperCase();
+    }
+
     @Override
     public String toString() {
-        return "name='" + name + '\'' +
+        return "Game{" +
+                "name='" + name + '\'' +
                 ", numberOfPlayers=" + numberOfPlayers +
                 '}';
     }
@@ -28,12 +39,12 @@ public abstract class Game implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Game game = (Game) o;
-        return name.equals(game.name);
+        return numberOfPlayers == game.numberOfPlayers &&
+                name.equals(game.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, numberOfPlayers);
     }
-
 }

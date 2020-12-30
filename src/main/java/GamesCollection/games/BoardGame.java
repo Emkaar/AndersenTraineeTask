@@ -9,26 +9,24 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Data
-@Table(name = "video_games")
 @Entity
+@Table(name = "board_games")
 @NoArgsConstructor
 @AllArgsConstructor
-public class VideoGame extends Game {
+public class BoardGame extends Game {
     private String genre;
-    private double rating;
-    @Column(name = "age_limit")
-    private int ageLimit;
     private double price;
+    @Column(name = "game_time")
+    private String gameTime;
 
     @Override
     public String toString() {
-        return "VideoGame{" +
+        return "BoardGame{" +
                 "name=" + super.getName() +
                 ", numbers of players=" + super.getNumberOfPlayers() +
                 ", genre='" + genre + '\'' +
-                ", rating=" + rating +
-                ", ageLimit=" + ageLimit +
                 ", price=" + price +
+                ", gameTime='" + gameTime + '\'' +
                 "}";
     }
 }

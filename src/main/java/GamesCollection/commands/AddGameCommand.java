@@ -5,6 +5,7 @@ import GamesCollection.utils.GameUtil;
 import GamesCollection.games.*;
 import GamesCollection.factory.GameFactory;
 import GamesCollection.factory.GameFactoryImpl;
+import java.util.List;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -24,53 +25,56 @@ public class AddGameCommand implements Command {
         }
 
         if (newGame instanceof VideoGame) {
-            VideoGame.VideoGameBuilder gameBuilder = VideoGame.getBuilder();
+            VideoGame videoGame = new VideoGame();
             System.out.println("What is the name of the game?");
-            gameBuilder.name(scanner.nextLine().toUpperCase());
+            videoGame.setName(scanner.nextLine().toUpperCase());
             System.out.println("What is the maximum number of players?");
-            gameBuilder.numberOfPlayers(scanner.nextInt());
+            videoGame.setNumberOfPlayers(scanner.nextInt());
             scanner.nextLine();
             System.out.println("What is the genre of the game?");
-            gameBuilder.genre(scanner.nextLine());
+            videoGame.setGenre(scanner.nextLine());
             System.out.println("What is the rating of the game?");
-            gameBuilder.rating(Double.parseDouble(scanner.nextLine()));
+            videoGame.setRating(Double.parseDouble(scanner.nextLine()));
             System.out.println("What is the age limit?");
-            gameBuilder.ageLimit(scanner.nextInt());
+            videoGame.setAgeLimit(scanner.nextInt());
             scanner.nextLine();
             System.out.println("How much does the game cost?");
-            gameBuilder.price(scanner.nextDouble());
+            videoGame.setPrice(scanner.nextDouble());
             scanner.nextLine();
-            newGame = gameBuilder.build();
+            newGame = videoGame;
 
         } else if (newGame instanceof SportGame) {
-            SportGame.SportGameBuilder gameBuilder = new SportGame.SportGameBuilder();
+            SportGame sportGame = new SportGame();
             System.out.println("What is the name of the game?");
-            gameBuilder.name(scanner.nextLine().toUpperCase());
+            sportGame.setName(scanner.nextLine().toUpperCase());
             System.out.println("What is the maximum number of players?");
-            gameBuilder.numberOfPlayers(scanner.nextInt());
+            sportGame.setNumberOfPlayers(scanner.nextInt());
             scanner.nextLine();
             System.out.println("What type is this sport game? (personal, command or personal-command)");
-            gameBuilder.sportGameType(SportGame.SportType.valueOf(scanner.nextLine().
+            sportGame.setType(SportGame.SportGameType.valueOf(scanner.nextLine().
                     toUpperCase().replace('-', '_')));
             System.out.println("What inventory is used in this game?");
-            gameBuilder.inventory(Arrays.asList(scanner.nextLine().split(" ")));
-            newGame = gameBuilder.build();
+            List<String> inventoryNamesList = Arrays.asList(scanner.nextLine().split(" "));
+            for (String name : inventoryNamesList){
+                sportGame.addInventory(new Inventory(name));
+            }
+            newGame = sportGame;
             ;
         } else if (newGame instanceof BoardGame) {
-            BoardGame.BoardGameBuilder gameBuilder = new BoardGame.BoardGameBuilder();
+            BoardGame boardGame = new BoardGame();
             System.out.println("What is the name of the game?");
-            gameBuilder.name(scanner.nextLine().toUpperCase());
+            boardGame.setName(scanner.nextLine().toUpperCase());
             System.out.println("What is the maximum number of players?");
-            gameBuilder.numberOfPlayers(scanner.nextInt());
+            boardGame.setNumberOfPlayers(scanner.nextInt());
             scanner.nextLine();
             System.out.println("What is the genre of the game?");
-            gameBuilder.genre(scanner.nextLine());
+            boardGame.setGameTime(scanner.nextLine());
             System.out.println("How much does the game cost?");
-            gameBuilder.price(scanner.nextDouble());
+            boardGame.setPrice(scanner.nextDouble());
             scanner.nextLine();
             System.out.println("What is the average duration of the game?");
-            gameBuilder.gameTime(scanner.nextLine());
-            newGame = gameBuilder.build();
+            boardGame.setGameTime(scanner.nextLine());
+            newGame = boardGame;
 
         }
             if (GameUtil.addGame(newGame)) {

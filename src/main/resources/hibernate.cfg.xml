@@ -11,11 +11,11 @@
         <property name="connection.password">45673756</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
-        <mapping class="GamesCollection.entity.GameEntity"/>
-        <mapping class="GamesCollection.entity.Inventory"/>
-        <mapping class="GamesCollection.entity.SportGameEntity"/>
-        <mapping class="GamesCollection.entity.VideoGameEntity"/>
-        <mapping class="GamesCollection.entity.BoardGameEntity"/>
+        <mapping class="GamesCollection.games.Game"/>
+        <mapping class="GamesCollection.games.Inventory"/>
+        <mapping class="GamesCollection.games.SportGame"/>
+        <mapping class="GamesCollection.games.VideoGame"/>
+        <mapping class="GamesCollection.games.BoardGame"/>
 
 
     </session-factory>

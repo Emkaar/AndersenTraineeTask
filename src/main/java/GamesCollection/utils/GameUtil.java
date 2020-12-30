@@ -3,12 +3,13 @@ package GamesCollection.utils;
 import GamesCollection.connection.DbConnector;
 import GamesCollection.games.Game;
 import GamesCollection.repository.GameDbRepository;
+import GamesCollection.repository.GameHibernateRepository;
 import GamesCollection.repository.Repository;
 import java.sql.SQLException;
 
 public class GameUtil {
 
-    private static Repository gameRepository = new GameDbRepository(DbConnector.getConnection());
+    private static Repository gameRepository = new GameHibernateRepository();
 
     public static boolean addGame(Game game){
         try {
@@ -53,7 +54,7 @@ public class GameUtil {
         }
     }
 
-    public static void closeConnection(){
-            DbConnector.closeConnections();
+    public static void exit() {
+        gameRepository.exit();
     }
 }

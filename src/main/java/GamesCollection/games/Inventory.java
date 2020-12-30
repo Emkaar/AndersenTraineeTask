@@ -1,6 +1,5 @@
-package GamesCollection.entity;
+package GamesCollection.games;
 
-import GamesCollection.games.SportGame;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,10 +15,15 @@ public class Inventory {
     private int id;
     private String name;
     @ManyToOne
-    @JoinColumn(name = "game_id")
-    private SportGameEntity sportGame;
+    @JoinColumn(name = "game_id", foreignKey = @ForeignKey(name = "fk_sport_game_inventory_sport_games"))
+    private SportGame sportGame;
 
     public Inventory(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "name='" + name + '\'';
     }
 }
