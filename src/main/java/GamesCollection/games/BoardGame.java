@@ -19,6 +19,14 @@ public class BoardGame extends Game {
     @Column(name = "game_time")
     private String gameTime;
 
+    public BoardGame(String name, int numberOfPlayers, String genre, double price, String gameTime) {
+        super.setName(name);
+        super.setNumberOfPlayers(numberOfPlayers);
+        this.genre = genre;
+        this.price = price;
+        this.gameTime = gameTime;
+    }
+
     @Override
     public String toString() {
         return "BoardGame{" +

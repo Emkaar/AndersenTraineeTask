@@ -6,6 +6,8 @@ import GamesCollection.repository.GameDbRepository;
 import GamesCollection.repository.GameHibernateRepository;
 import GamesCollection.repository.Repository;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class GameUtil {
 
@@ -33,7 +35,10 @@ public class GameUtil {
             if (gameRepository.getAll().isEmpty()){
                 return false;
             }
-            System.out.println(gameRepository.getAll());
+            Set<Game> gameSet = gameRepository.getAll();
+            for(Game game : gameSet){
+                System.out.println(game);
+            }
             return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();

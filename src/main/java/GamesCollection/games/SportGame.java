@@ -22,6 +22,13 @@ public class SportGame extends Game {
     @OneToMany(mappedBy = "sportGame", cascade = CascadeType.ALL)
     private List<Inventory> inventoryList = new ArrayList<>();
 
+    public SportGame(String name, int numberOfPlayers, SportGameType type, List<Inventory> inventoryList) {
+        super.setName(name);
+        super.setNumberOfPlayers(numberOfPlayers);
+        this.type = type;
+        this.inventoryList = inventoryList;
+    }
+
     public void addInventory(Inventory inventory){
         inventoryList.add(inventory);
         inventory.setSportGame(this);

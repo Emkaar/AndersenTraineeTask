@@ -20,6 +20,16 @@ public class VideoGame extends Game {
     private int ageLimit;
     private double price;
 
+
+    public VideoGame(String name, int numberOfPlayers, String genre, double rating, int ageLimit, double price) {
+        super.setName(name);
+        super.setNumberOfPlayers(numberOfPlayers);
+        this.genre = genre;
+        this.rating = rating;
+        this.ageLimit = ageLimit;
+        this.price = price;
+    }
+
     @Override
     public String toString() {
         return "VideoGame{" +

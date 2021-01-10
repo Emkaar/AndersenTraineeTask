@@ -5,11 +5,14 @@ import GamesCollection.utils.GameUtil;
 import GamesCollection.games.*;
 import GamesCollection.factory.GameFactory;
 import GamesCollection.factory.GameFactoryImpl;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
+@Component
 public class AddGameCommand implements Command {
     @Override
     public void execute() {

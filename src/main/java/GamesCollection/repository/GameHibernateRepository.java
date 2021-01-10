@@ -54,7 +54,7 @@ public class GameHibernateRepository implements Repository{
     public Set<Game> getAll() throws SQLException {
         Transaction tr = session.getTransaction();
         tr.begin();
-        Set<Game> resultSet = (Set<Game>) session.createQuery("from Game").getResultStream().collect(Collectors.toSet());
+        Set<Game> resultSet = (Set<Game>) session.createQuery("select g from Game g").getResultStream().collect(Collectors.toSet());
         if (resultSet!=null){
             tr.commit();
             return resultSet;
