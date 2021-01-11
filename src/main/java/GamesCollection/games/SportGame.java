@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Table(name = "sport_games")
@@ -19,7 +16,7 @@ public class SportGame extends Game {
     public enum SportGameType{COMMAND, PERSONAL, PERSONAL_COMMAND}
 
     private SportGameType type;
-    @OneToMany(mappedBy = "sportGame", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "sportGame", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Inventory> inventoryList = new ArrayList<>();
 
     public SportGame(String name, int numberOfPlayers, SportGameType type, List<Inventory> inventoryList) {

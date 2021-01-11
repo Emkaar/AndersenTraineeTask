@@ -2,10 +2,12 @@ package GamesCollection.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.xml.crypto.Data;
+
 public class SpringConfigMVC extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return null;
+        return new Class[]{DataConfig.class};
     }
 
     @Override
