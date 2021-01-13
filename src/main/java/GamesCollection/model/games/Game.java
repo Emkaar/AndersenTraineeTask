@@ -24,9 +24,9 @@ public class Game {
     @Column(name = "number_of_players")
     private int numberOfPlayers;
 
-//    @ManyToOne
-//    @JoinColumn(name = "collection_id", foreignKey = @ForeignKey(name = "fk_games_games_collection"))
-//    private GameCollection collection;
+    @ManyToOne
+    @JoinColumn(name = "collection_id")
+    private GameCollection collection;
     public void setName(String name) {
         this.name = name.toUpperCase();
     }

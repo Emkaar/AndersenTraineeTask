@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .disable()
                     .authorizeRequests()
                     //Доступ только для не зарегистрированных пользователей
-                    .antMatchers("/signup" , "/login").not().fullyAuthenticated()
+                    .antMatchers("/signup" ).not().fullyAuthenticated()
                     //Доступ только для пользователей с ролью Администратор
                     .antMatchers("/admin/**").hasRole("ADMIN")
                     .antMatchers("/games").hasRole("USER")
@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .formLogin()
                     .loginPage("/login")
                     //Перенарпавление на главную страницу после успешного входа
-                    .defaultSuccessUrl("/games")
+                    .defaultSuccessUrl("/collection")
                     .permitAll()
                     .and()
                     .logout()

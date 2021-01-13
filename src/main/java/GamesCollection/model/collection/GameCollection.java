@@ -25,9 +25,9 @@ public class GameCollection {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_games_collections_users"))
+    @JoinColumn(name = "user_id")
     private User user;
 
-//    @OneToMany(mappedBy = "collection", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    private List<Game> gameSet = new ArrayList<>();
+    @OneToMany(mappedBy = "collection", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Game> gameList = new ArrayList<>();
 }

@@ -5,8 +5,8 @@
     <title>add new game</title>
 </head>
 <body>
-    <form th:method="POST" th:action="@{/games/add}" th:object="${game}">
-    <label for="name">Enter name/login: </label>
+    <form th:method="POST" th:action="@{/collection/add/{id}(id=${id})}" th:object="${game}">
+    <label for="name">Enter game name: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <br/>
     <label for="numberOfPlayers">Enter numberOfPlayers: </label>

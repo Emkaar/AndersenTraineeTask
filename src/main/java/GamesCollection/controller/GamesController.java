@@ -18,27 +18,16 @@ public class GamesController {
     GameDataService service;
 
 
-    @GetMapping("/games")
-    public String showAllGames(Authentication authentication, Model model){
-        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-        System.out.println(userDetails.getAuthorities().toString());
-        System.out.println(userDetails.getUsername());
-        User user = (User)userDetails;
-        System.out.println(user.getId());
-        model.addAttribute("games", service.getAll());
-        return "allGames";
-    }
+//    @GetMapping("/games")
+//    public String showAllGames(Authentication authentication, Model model){
+//        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+//        User user = (User)userDetails;
+//        model.addAttribute("games", service.getAll());
+//        return "allGames";
+//    }
 
-    @GetMapping("/games/add")
-    public String addNewGamePage(@ModelAttribute("game") Game game){
-        return "addNewGame";
-    }
 
-    @PostMapping("/games/add")
-    public String addNewGame(@ModelAttribute("game") Game game){
-        service.addGame(game);
-        return "redirect:/games";
-    }
+
 
 
     @GetMapping("/game/{id}")
