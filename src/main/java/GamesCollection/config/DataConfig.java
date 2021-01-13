@@ -20,7 +20,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan("GamesCollection")
 @PropertySource(value = {"classpath:application.properties"})
-@EnableJpaRepositories("GamesCollection.repository")
+@EnableJpaRepositories("GamesCollection.repo")
 public class DataConfig {
 
     private static final String PROP_DATABASE_DRIVER = "db.driver";
